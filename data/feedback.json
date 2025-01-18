@@ -1,0 +1,98 @@
+[
+  {
+    "satisfaction": "happy",
+    "name": "",
+    "contact": "",
+    "comment": "",
+    "rating": 3,
+    "timestamp": "2025-01-18T19:49:04.397Z"
+  },
+  {
+    "satisfaction": "happy",
+    "name": "",
+    "contact": "",
+    "comment": "",
+    "rating": 3,
+    "timestamp": "2025-01-18T19:49:03.030Z"
+  },
+  {
+    "satisfaction": "sad",
+    "name": "Luis John",
+    "contact": "mnrdzjohn@gmail.com",
+    "comment": "Hello there",
+    "rating": 1,
+    "timestamp": "2025-01-18T19:49:27.954Z"
+  },
+  {
+    "satisfaction": "happy",
+    "name": "",
+    "contact": "",
+    "comment": "",
+    "rating": 5,
+    "timestamp": "2025-01-18T19:49:42.505Z"
+  },
+  {
+    "satisfaction": "happy",
+    "name": "",
+    "contact": "",
+    "comment": "",
+    "rating": 5,
+    "timestamp": "2025-01-18T19:54:18.446Z"
+  },
+  {
+    "satisfaction": "happy",
+    "name": "",
+    "contact": "",
+    "comment": "",
+    "rating": 4,
+    "timestamp": "2025-01-18T19:54:32.539Z"
+  },
+  {
+    "satisfaction": "happy",
+    "name": "",
+    "contact": "",
+    "comment": "",
+    "rating": 5,
+    "timestamp": "2025-01-18T19:54:57.024Z"
+  },
+  {
+    "satisfaction": "sad",
+    "name": "Sharmila Bila",
+    "contact": "sb@it.mz",
+    "comment": "hgrufuvtf  gr7fu",
+    "rating": 2,
+    "timestamp": "2025-01-18T19:55:31.690Z"
+  },
+  {
+    "satisfaction": "happy",
+    "name": "",
+    "contact": "",
+    "comment": "",
+    "rating": 5,
+    "timestamp": "2025-01-18T19:56:00.546Z"
+  },
+  {
+    "satisfaction": "happy",
+    "name": "",
+    "contact": "",
+    "comment": "",
+    "rating": 4,
+    "timestamp": "2025-01-18T20:03:56.367Z"
+  },
+  {
+    "satisfaction": "sad",
+    "name": "Sharmila Bila",
+    "contact": "sb@it.mz",
+    "comment": "derrr",
+    "rating": 2,
+    "timestamp": "2025-01-18T20:04:13.961Z"
+  },
+  {
+    "satisfaction": "happy",
+    "name": "",
+    "contact": "",
+    "comment": "",
+    "rating": 4,
+    "timestamp": "2025-01-18T20:15:10.725Z"
+  }
+]

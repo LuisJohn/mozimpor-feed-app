@@ -1,101 +1,153 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { toast, ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { StarRating } from '@/components/StarRating'
+import Link from 'next/link'
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+export default function ClientFeedback() {
+    const [satisfaction, setSatisfaction] = useState<'happy' | 'sad' | null>(null)
+    const [name, setName] = useState('')
+    const [contact, setContact] = useState('')
+    const [comment, setComment] = useState('')
+    const [rating, setRating] = useState(0)
+
+    const handleSatisfaction = (level: 'happy' | 'sad') => {
+      setSatisfaction(level)
+      if (level === 'happy') {
+        setName('')
+        setContact('')
+        setComment('')
+      }
+    }
+
+    const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault()
+      const feedbackData = { satisfaction, name, contact, comment, rating, timestamp: new Date().toISOString() }
+
+      try {
+        const response = await fetch('/api/feedback', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(feedbackData),
+        })
+
+        if (response.ok) {
+          toast.success('Feedback submitted successfully!')
+          // Reset the form
+          setSatisfaction(null)
+          setName('')
+          setContact('')
+          setComment('')
+          setRating(0)
+        } else {
+          toast.error('Error submitting feedback. Please try again.')
+        }
+      } catch (error) {
+        console.error('Error submitting feedback:', error)
+        toast.error('Error submitting feedback. Please try again.')
+      }
+    }
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 flex flex-col items-center justify-center p-4">
+        <div className="w-full max-w-2xl flex justify-end mb-4">
+          <Link href="/dashboard">
+            <Button variant="outline" className="text-lg py-2 px-4">
+              Dashboard
+            </Button>
+          </Link>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
-}
+        <Card className="w-full max-w-2xl">
+          <CardHeader>
+            <CardTitle className="text-4xl font-bold text-center">Client Feedback</CardTitle>
+            <CardDescription className="text-xl text-center">We value your opinion!</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex justify-center space-x-16 mb-8">
+              <Button
+                variant={satisfaction === 'happy' ? 'default' : 'outline'}
+                size="lg"
+                className="w-40 h-40 rounded-full text-6xl"
+                onClick={() => handleSatisfaction('happy')}
+              >
+                😍
+              </Button>
+              <Button
+                variant={satisfaction === 'sad' ? 'default' : 'outline'}
+                size="lg"
+                className="w-40 h-40 rounded-full text-6xl"
+                onClick={() => handleSatisfaction('sad')}
+              >
+                😞
+              </Button>
+            </div>
+            {satisfaction && (
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <Label htmlFor="rating" className="text-lg">Rating</Label>
+                  <StarRating onChange={setRating} />
+                </div>
+                {satisfaction === 'sad' && (
+                  <>
+                    <div>
+                      <Label htmlFor="name" className="text-lg">Name</Label>
+                      <Input
+                        id="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Your name"
+                        required
+                        className="text-lg p-6"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="contact" className="text-lg">Contact</Label>
+                      <Input
+                        id="contact"
+                        value={contact}
+                        onChange={(e) => setContact(e.target.value)}
+                        placeholder="Email or phone number"
+                        required
+                        className="text-lg p-6"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="comment" className="text-lg">Comment</Label>
+                      <Textarea
+                        id="comment"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                        placeholder="Your feedback"
+                        rows={4}
+                        required
+                        className="text-lg p-6"
+                      />
+                    </div>
+                  </>
+                )}
+              </form>
+            )}
+          </CardContent>
+          <CardFooter>
+            <Button
+              className="w-full text-xl py-6"
+              onClick={handleSubmit}
+              disabled={!satisfaction || !rating || (satisfaction === 'sad' && (!name || !contact || !comment))}
+            >
+              Submit Feedback
+            </Button>
+          </CardFooter>
+        </Card>
+        <ToastContainer position="bottom-right" />
+      </div>
+    )
+  }
